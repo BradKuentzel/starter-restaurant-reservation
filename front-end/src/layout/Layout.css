@@ -1,4 +1,116 @@
+/* 
+/////////////////////////
+////////// ALL //////////
+/////////////////////////
+*/
+
 .side-bar {
-  background-color: #393a44;
-  min-width: 200px;
+	background-color: #393a44;
+	min-width: 200px;
+}
+
+body {
+	background-color: #2f5d62;
+}
+
+/* 
+/////////////////////////
+/////// DASHBOARD ///////
+///////////////////////// 
+*/
+
+.dashboard {
+	font-weight: 900;
+	text-align: center;
+	color: #ffb037;
+}
+
+.reservation-list {
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+}
+
+.tables-list {
+	text-align: center;
+}
+
+/* 
+//////////////////////
+/////// cards ///////
+/////////////////////
+*/
+
+.card {
+	border: 1px solid #ffe268;
+	color: #ffb037;
+	width: 16rem;
+	margin: 1rem 1rem 1rem 8rem;
+}
+
+.card-header {
+	background-color: #364547;
+	display: flex;
+	justify-content: space-between;
+}
+
+.card-body {
+	background-color: #364547;
+	text-align: center;
+}
+
+.seat-card {
+	text-align: center;
+	margin: 150px 300px;
+	vertical-align: middle;
+	width: 30rem;
+	background-color: #364547;
+}
+
+.seat-card-header {
+	text-align: center;
+}
+
+/* 
+//////////////////////
+/////// forms ///////
+/////////////////////
+*/
+
+.date-selector-btns {
+	text-align: center;
+}
+
+.date-btn {
+	margin: 1rem;
+}
+
+.date {
+	background-color: #364547;
+	border: 1px solid #ffe268;
+	color: #ffb037;
+	padding: 10px;
+	margin-top: 25px;
+}
+
+.list-title {
+	background-color: #364547;
+	border: 1px solid #ffe268;
+	color: #ffb037;
+	padding: 10px;
+	margin: 50px;
+}
+
+.new-btn {
+	background-color: aliceblue;
+}
+
+.form-title {
+	color: #ffb037;
+	margin-bottom: 25px;
+}
+
+.form-label {
+	color: #ffb037;
+	font-weight: bold;
 }
