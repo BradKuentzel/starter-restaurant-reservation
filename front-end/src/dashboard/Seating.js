@@ -71,15 +71,20 @@ export default function Seating() {
 								})}
 							</select>
 						</label>
-						<button type="submit" className="btn-sm btn-outline-success">
-							Submit
-						</button>
-						<button
-							onClick={handleCancel}
-							className="mb-5 mt-2 btn-sm btn-outline-danger"
-						>
-							Cancel
-						</button>
+						<div className="tbl-btns">
+							<button
+								type="submit"
+								className="tbl-btn btn-sm btn-outline-success"
+							>
+								Submit
+							</button>
+							<button
+								onClick={handleCancel}
+								className="tbl-btn btn-sm btn-outline-danger"
+							>
+								Cancel
+							</button>
+						</div>
 					</form>
 				</div>
 			</div>

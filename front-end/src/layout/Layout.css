@@ -114,3 +114,13 @@ body {
 	color: #ffb037;
 	font-weight: bold;
 }
+
+.tbl-btns {
+	margin-top: 20px;
+	display: flex;
+	justify-content: space-around;
+}
+
+.tbl-btn {
+	width: 60px;
+}
