@@ -1,56 +1,45 @@
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router";
-import ErrorAlert from "../layout/ErrorAlert";
-import ReservationCard from "./ReservationCard";
-import { listTables, updateTable, readReservation } from "../utils/api";
+import { listTables, API_BASE_URL as url } from "../utils/api";
+import axios from "axios";
 
 export default function Seating() {
-	const [formData, setFormData] = useState("Please Select a table");
 	const [tables, setTables] = useState([]);
-	const [tablesError, setTablesError] = useState(null);
-	const [reservation, setReservation] = useState([]);
-	const [reservationError, setReservationError] = useState(null);
+	const [tableId, setTableId] = useState(0);
 
 	const history = useHistory();
 	const { reservation_id } = useParams();
 
-	useEffect(() => {
-		async function loadDashboard() {
-			const abortController = new AbortController();
-			setTablesError(null);
-			setReservationError(null);
-			try {
-				const listedTables = await listTables(abortController.signal);
-				setTables(listedTables);
-				const reserved = await readReservation(reservation_id);
-				setReservation(reserved);
-			} catch (err) {
-				setTablesError({ message: err.response.data.error });
-				setReservationError({ message: err.response.data.error });
-			}
-			return () => abortController.abort();
-		}
-		loadDashboard();
-	}, [reservation_id]);
+	const loadTables = () => {
+		const abortController = new AbortController();
+		listTables(abortController.signal)
+			.then(setTables)
+			.catch((error) => console.error(error));
 
-	const handleSubmit = async (e) => {
+		return () => abortController.abort();
+	};
+
+	useEffect(loadTables, []);
+
+	const handleSubmit = (e) => {
 		e.preventDefault();
-		try {
-			if (formData === "Please Select a table")
-				throw new Error("Please select a valid table");
-			await updateTable(formData, { data: { reservation_id } });
-			history.push("/dashboard");
-		} catch (error) {
-			if (error.response)
-				setTablesError({ message: error.response.data.error });
-			if (!error.response) setTablesError(error);
+
+		if (reservation_id) {
+			axios
+				.put(`${url}/tables/${tableId}/seat`, {
+					data: { reservation_id: reservation_id },
+				})
+				.then((response) =>
+					response.status === 200 ? history.push("/") : null
+				)
+				.catch((error) => console.log(error));
 		}
 	};
+
 	const handleChange = (event) => {
-		setFormData(event.target.value);
+		setTableId(event.target.value);
 	};
 	const handleCancel = () => {
-		setFormData("Please Select a table");
 		history.goBack();
 	};
 
@@ -70,8 +59,7 @@ export default function Seating() {
 							<select
 								id="table_id"
 								name="table_id"
-								onChange={handleChange}
-								value={formData}
+								onChange={(e) => handleChange(e)}
 							>
 								<option>Please select a table</option>
 								{tables.map((table) => {
@@ -83,19 +71,17 @@ export default function Seating() {
 								})}
 							</select>
 						</label>
+						<button type="submit" className="btn-sm btn-outline-success">
+							Submit
+						</button>
+						<button
+							onClick={handleCancel}
+							className="mb-5 mt-2 btn-sm btn-outline-danger"
+						>
+							Cancel
+						</button>
 					</form>
 				</div>
-				<button type="submit" className="btn-sm btn-outline-success">
-					Submit
-				</button>
-				<button
-					onClick={handleCancel}
-					className="mb-5 mt-2 btn-sm btn-outline-danger"
-				>
-					Cancel
-				</button>
-				<ErrorAlert error={tablesError} />
-				<ErrorAlert error={reservationError} />
 			</div>
 		</div>
 	);
