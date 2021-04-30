@@ -32,7 +32,7 @@ function Dashboard({ date, setDate }) {
 	return (
 		<main>
 			<div className="dashboard">
-				<h1 className="date">{formatAsDate(date)}</h1>
+				<h1 className="date">Reservations for {formatAsDate(date)}</h1>
 			</div>
 			<div className="row">
 				<div className="reservation-list col-6">
