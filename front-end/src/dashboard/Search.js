@@ -41,8 +41,8 @@ export default function Search() {
 					Find
 				</button>
 				{reservations.length ? (
-					reservations.map((reservation, index) => (
-						<ReservationCard reservation={reservation} key={index} />
+					reservations.map((reservation, reservation_id) => (
+						<ReservationCard reservation={reservation} key={reservation_id} />
 					))
 				) : (
 					<h5 className="text-white mt-3">No reservations found</h5>
